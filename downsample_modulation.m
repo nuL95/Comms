@@ -1,3 +1,5 @@
+% Author: Mark Blair
+% 12/15/2024
 %% Demodulation via downsampling, the ratio of the sampling frequency to modulation frequency needs to be an integer.
 clear;close all;
 %% system and signal parameters

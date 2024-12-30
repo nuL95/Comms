@@ -1,3 +1,5 @@
+% Author: Mark Blair
+% 12/28/2024
 %% Timing recovery using steepest descent to maximize the energy of each symbol in a PAM4 system using SRRC pulse shaping
 clear;close all;
 n = 10000;

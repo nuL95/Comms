@@ -1,3 +1,5 @@
+% Author: Mark Blair
+% 12/24/2024
 % Basic communication system simulation, no phase/frequency tracking of
 % carrier, timing recovery, or channel estimation The system is uses QAM4
 % and a SRRC pulse shape

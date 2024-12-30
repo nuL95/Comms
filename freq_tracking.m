@@ -1,3 +1,5 @@
+% Author: Mark Blair
+% 12/16/2024
 %% Frequency tracking simulation using a dual loop PLL for a PAM4 system using SRRC pulse shaping
 clear;
 close all;
