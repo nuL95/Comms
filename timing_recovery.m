@@ -6,7 +6,7 @@ n = 10000;
 %% creation of symbols
 sps = 6;
 beta = 0.3;
-chan = [0 1 .3];
+chan = [0.05 .7 0.1 .02 .1 .09];
 dat = randi([0 3],1, n);
 s = pammod(dat,4);
 sup = zeros(1,n*sps);
@@ -51,11 +51,6 @@ function  y = interpsinc(x,val)
     end
     snc = sinc(t-val);
     y = snc*x';
-% linear interpolation also works, not as effective but much faster
-%     low = x(1+floor(val));
-%     high = x(1+ceil(val));
-%     slope = high-low;
-%     y= low+slope;
 end
 function y = quantalph(x, v)
     dist = zeros(1,length(v));

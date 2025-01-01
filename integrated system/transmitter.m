@@ -17,10 +17,10 @@ noisePow = sigPow/(10^(SNRdb/10));
 nyq_fil = rcosdesign(beta,span,sps,"sqrt");
 training_sequence = load("training_sequence.mat");
 training_sequence = training_sequence.training_sequence;
-phi = randi([0 314],1,1)/100;
+phi = randi([-150 150])/100;
 f0 = randi([-100 100],1,1)/100;
-del = randi([0 sps],1,1);
-del_resp = [zeros(1,del-1) 1];
+del = randi([1 10],1,1);
+del_resp = [zeros(1,del) 1];
 % attn_factor = randi([50 350])/100; AGC Factor, or could do fading, will
 % work on later
 attn_factor = 1;

@@ -6,7 +6,7 @@ clear;
 close all;
 %% Signal and system parameters
 N = 1000;
-chan = [0.05 1 -0.6 .02 .1 .02 -.1];
+chan = [0 1];
 trainingLength = 100;
 dat = randi([0 3], N,1);
 syms = real(pammod(dat, 4));
@@ -14,11 +14,11 @@ sps = 8;
 span = 10;
 beta = 0.6;
 nyq_filter = rcosdesign(beta, span, sps, 'sqrt');
-eq_len = 21;
-mu = 0.1;
+eq_len = 31;
+mu = 0.01;
 %% Signal Generation
-rx = upfirdn(syms,nyq_filter,sps);
-rx = filter(chan,1,rx);
+tx = upfirdn(syms,nyq_filter,sps);
+rx = filter(chan,1,tx);
 ref_sig = rx(1:sps*trainingLength+(span-1)*sps+1);
 %% LMS Equalizer algorithm
 w = zeros(eq_len,1);
@@ -32,7 +32,7 @@ for k = eq_len:length(ref_sig)
 end
 %% Recovery using trained equalizer
 rx_rec = filter(w,1,rx);
-rx_rec = 2*filter(nyq_filter,1,rx_rec);
+rx_rec = filter(nyq_filter,1,rx_rec);
 syms_rec = rx_rec(1:sps:end);
 syms_rec = syms_rec(span+1:N+span);
 for ii = 1:length(syms_rec)
@@ -48,7 +48,7 @@ end
 numErrors
 %%
 figure(1)
-plot(2*filter(nyq_filter,1,rx))
+plot(filter(nyq_filter,1,tx))
 title('Original signal (without channel distortion) and equalizer output')
 hold on
 plot(rx_rec)
