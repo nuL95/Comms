@@ -3,6 +3,8 @@
 %This is the receiver that will attempt to recover the message sent my
 %transmitter.m, taking into account the carrier and timing recovery as well
 %as equalization
+%TODO: Frame synchronization, where did my last symbol go, QAM, and better
+%timing recovery.
 clear;
 close all;
 
@@ -16,21 +18,21 @@ N = tx_dat.N;
 syms = tx_dat.syms;
 nyq_fil = tx_dat.nyq_fil_original;
 t = 0:1/fs:(1/fs)*length(tx)-(1/fs);
-%% AGC Module Will work on later
-step_AGC = 0.1;
-AGC_len = 3e3;
-a = zeros(AGC_len,1); a(1) = 1;
-s = zeros(AGC_len,1);
-target_pow = 1;
+%% AGC Module
+%current progress, it isn't working, a is not taking on the correct value,
+%to bypass AGC just get rid of line 34, tx = s';
+step_AGC = 1;
+a = zeros(length(tx),1); a(1) = 1;
+s = zeros(length(tx),1);
+target_pow = .0833;
 lenavg = 10;
 avec = zeros(1,lenavg);
-for k = 1:AGC_len-1
+for k = 1:length(tx)
     s(k) = a(k)*tx(k);
     avec = [(s(k)^2-target_pow)*(s(k)^2)/a(k), avec(1:end-1)];
     a(k+1) = a(k) - step_AGC*mean(avec);
 end
-a(end) = 1;
-rx_agc_out = tx*a(end);
+tx = s';
 %% Carrier recovery
 r_pll = tx.^2;
 %The frequencies for the bandpass filter depends on fc, and the desired
@@ -65,7 +67,7 @@ end
 % plot(theta)
 % title('theta')
 
-rx = tx_dat.tx.*carrier_sync;
+rx = tx.*carrier_sync;
 
 %% Timing Recovery
 step_timing = 1;
@@ -103,7 +105,7 @@ end
 rx_rec = filter(w,1,rx);
 rx_rec = filter(nyq_fil,1,rx_rec);
 % test to see how well we have recovered from the channel
-% test = filter(nyq_fil,1,tx_dat.tx_syms);
+test = filter(nyq_fil,1,tx_dat.tx_syms);
 % figure(1)
 % plot(rx_rec(1:10e3))
 % hold on
@@ -111,6 +113,11 @@ rx_rec = filter(nyq_fil,1,rx_rec);
 
 syms_rec = rx_rec(1+tau_est:tx_dat.sps:end);
 syms_rec = syms_rec(tx_dat.span+1:length(tr_seq)+N+tx_dat.span-tx_dat.sps);
+%%Energy scaling and symbol recovery
+%for the current system (binary communication) the average symbol energy is
+%1
+avg_energy = mean(syms_rec.^2);
+syms_rec = syms_rec/sqrt(avg_energy);
 for ii = 1:length(syms_rec)
     syms_rec(ii) = quantalph(syms_rec(ii),[-1 1]);
 end
