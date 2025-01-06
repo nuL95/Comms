@@ -1,0 +1,18 @@
+﻿  conv.cpp
+C:\Users\Mark\Desktop\Comm Sim\Comm Sim\conv.cpp(6,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Mark\Desktop\Comm Sim\Comm Sim\conv.cpp(7,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  dotProd.cpp
+C:\Users\Mark\Desktop\Comm Sim\Comm Sim\dotProd.cpp(6,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Mark\Desktop\Comm Sim\Comm Sim\dotProd.cpp(7,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  eleWiseVecMult.cpp
+C:\Users\Mark\Desktop\Comm Sim\Comm Sim\eleWiseVecMult.cpp(6,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Mark\Desktop\Comm Sim\Comm Sim\eleWiseVecMult.cpp(7,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  fliplr.cpp
+C:\Users\Mark\Desktop\Comm Sim\Comm Sim\fliplr.cpp(6,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  main.cpp
+  printVec.cpp
+  upsample.cpp
+C:\Users\Mark\Desktop\Comm Sim\Comm Sim\upsample.cpp(6,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  vec_to_file.cpp
+  Generating Code...
+  Comm Sim.vcxproj -> C:\Users\Mark\Desktop\Comm Sim\x64\Debug\Comm Sim.exe
